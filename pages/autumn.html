@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./autumn.css">
+</head>
+<body>
+    <section>
+        <h1>Autumn is Awesome</h1>
+        <span class="hover-btn">
+            <svg viewBox="0 0 62 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M61.0607 13.0607C61.6465 12.4749 61.6465 11.5251 61.0607 10.9393L51.5147 1.3934C50.9289 0.807612 49.9792 0.807612 49.3934 1.3934C48.8076 1.97918 48.8076 2.92893 49.3934 3.51472L57.8787 12L49.3934 20.4853C48.8076 21.0711 48.8076 22.0208 49.3934 22.6066C49.9792 23.1924 50.9289 23.1924 51.5147 22.6066L61.0607 13.0607ZM0 13.5H60V10.5H0V13.5Z" />
+            </svg>
+        </span>
+    </section>
+
+    <section class="overlay">
+        <h1>Autumn is Awesome</h1>
+        <span class="hover-btn2" >
+            <svg viewBox="0 0 62 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M61.0607 13.0607C61.6465 12.4749 61.6465 11.5251 61.0607 10.9393L51.5147 1.3934C50.9289 0.807612 49.9792 0.807612 49.3934 1.3934C48.8076 1.97918 48.8076 2.92893 49.3934 3.51472L57.8787 12L49.3934 20.4853C48.8076 21.0711 48.8076 22.0208 49.3934 22.6066C49.9792 23.1924 50.9289 23.1924 51.5147 22.6066L61.0607 13.0607ZM0 13.5H60V10.5H0V13.5Z" />
+            </svg>
+        </span>
+    </section>
+
+    <header class="gal">
+        <div class="inner">
+            <h1>Autumn images</h1>
+
+            <div class="autumn">
+                <div class="card">
+                    <div class="img-container">
+                        <div class="img"></div>
+
+                    </div>
+                    <div class="content">
+                        <p>Lorem ipsum dolor sit 
+                            amet consectetur, adipisicing 
+                            elit. Laudantium nostrum 
+                            distinctio id quam velit nemo.
+                        </p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="img-container">
+                        <div class="img"></div>
+                    </div>
+                    <div class="content">
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laudantium nostrum distinctio id quam velit nemo.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="img-container">
+                        <div class="img"></div>
+                    </div>
+                    <div class="content">
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laudantium nostrum distinctio id quam velit nemo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@0.2.28/bundled/lenis.js" ></script>
+    <script src="https://unpkg.com/split-type"></script>
+    <script>
+        
+        const cards = document.querySelectorAll('.img');
+
+        let tl = new gsap.timeline({
+            scrollTrigger: {
+                    trigger: ".autumn",
+                    start: "top bottom",
+                    end: "+=700",
+                    scrub: 1
+            },
+        })
+
+
+        cards.forEach((img) => {
+        let rotation = Math.floor(Math.random() * 40) - 20;
+            positionX = Math.floor(Math.random() * 300) - 150;
+            positionY = Math.floor(Math.random() * 300) - 150;
+
+            tl.from(img, {
+                rotation: rotation,
+                x: positionX,
+                y: positionY,
+            }, "-=1")
+            tl.to(img, {
+                backgroundSize: '100%',
+            }, .2);
+        })
+
+
+    </script>
+    <script>
+    const span = document.querySelector('.hover-btn2')
+    const overlay = document.querySelector('.overlay')
+
+    window.addEventListener('mousemove', (e) => {
+        const { clientX, clientY } = e;
+        const x = Math.round((clientX / window.innerWidth) * 100);
+        const y = Math.round((clientY / window.innerHeight) * 100);
+
+        gsap.to(overlay, {
+            '--x': `${x}%`,
+            '--y': `${y}%`,
+            duration: 0.3,
+            ease: 'sine.out'
+        })
+    })
+
+    span.addEventListener('click', () => {
+        overlay.classList.toggle('is-open')
+    })
+</script>
+
+</body>
+</html>

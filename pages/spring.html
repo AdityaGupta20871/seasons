@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./spring.css">
+</head>
+<body>
+    <section></section>
+    
+    <section class="container">
+        <h1>Spring<br>has<br>come</h1>
+        <svg viewBox="0 0 1267 143" xmlns="http://www.w3.org/2000/svg">
+            <path id="curve" d="M1 73C109.333 19 384.4 -56.6 618 73C851.6 202.6 1148 121 1267 64" fill="transparent" />
+            <text>
+                <textPath id="text-path" href="#curve" startOffset="0">
+                    Spring brings joy and happiness 
+                </textPath>
+            </text>
+        </svg>
+    </section>
+
+    <section></section>
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", () => {
+
+            const textPath = document.getElementById("text-path");
+            const scrollSpeed = 2.5; // You can change this value to control the speed
+            const animationDirection = "right"; // You can change this value to "left" or "right"
+            const startPosition = -100; // You can change this value to set the starting position (in percentage)
+
+            const updateTextPosition = () => {
+                const container = document.querySelector(".container");
+                const containerRect = container.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+
+                if (containerRect.top <= windowHeight && containerRect.bottom >= 0) {
+                    const directionMultiplier = animationDirection === "left" ? 1 : -1;
+                    const startOffset = startPosition + ((containerRect.top - windowHeight) / (containerRect.height + windowHeight)) * 100 * scrollSpeed * directionMultiplier;
+                    textPath.setAttribute("startOffset", startOffset + "%");
+                }
+
+            }
+
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            updateTextPosition();
+                        }
+                    });
+                },
+                { threshold: 0.1 }
+            );
+
+            observer.observe(textPath);
+
+            window.addEventListener("scroll", updateTextPosition);
+        })
+
+    </script>
+
+    <section>
+        <ul>
+            <li><div class="mask"><img src="../images/sp1.jpg" alt=""></div></li>
+            <li><div class="mask"><img src="../images/sp3.jpg" alt=""></div></li>
+            <li><div class="mask"><img src="../images/sp2.jpg" alt=""></div></li>
+            <li><div class="mask"><img src="../images/sp4.jpg" alt=""></div></li>
+            <li><div class="mask"><img src="../images/sp5.jpg" alt=""></div></li>
+            <li><div class="mask"><img src="../images/sp1.jpg" alt=""></div></li>
+            <li><div class="mask"><img src="../images/sp4.jpg" alt=""></div></li>
+            <li><div class="mask"><img src="../images/sp2.jpg" alt=""></div></li>
+            <li><div class="mask"><img src="../images/sp3.jpg" alt=""></div></li>
+        </ul>
+    </section>
+    <section>
+
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@0.2.28/bundled/lenis.js" ></script>
+    <script>
+        const gallery = document.querySelector('section ul')
+        gsap.set('img',{scale:0})
+        gsap.to(gallery,{
+            scrollTrigger:{
+                trigger:gallery,
+                scrub:false,
+                start:'top bottom-=200px',
+                end:'bottom middle',
+                markers:false,
+                toggleActions:'play none none reverse'
+            },
+            rotationX:'0deg'
+        })
+        gsap.to('img',{
+            scrollTrigger:{
+                trigger:gallery,
+                scrub:false,
+                start:'top bottom-=200px',
+                end:'bottom bottom-=400',
+                markers:false,
+                toggleActions:'play none none reverse'
+            },
+            scale:1,
+            stagger:.3
+        })
+
+
+        const lenis = new lenis()
+        
+        lenis.on('scroll',(e)=>{
+            console.log(e)
+        })
+        function raf(time){
+            lenis.raf(time)
+            requestAnimationFrame(raf)
+        }
+        requestAnimationFrame(raf)
+    </script>
+</body>
+</html>
